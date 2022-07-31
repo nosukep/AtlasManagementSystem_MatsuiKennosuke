@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('role')->index('role')->comment('権限');
             $table->string('password', 191)->comment('パスワード');
             $table->rememberToken();
-            $table->timestamp('created_at')->nullable()->comment('登録日時');
+            $table->timestamp('created_at')->useCurrent()->comment('登録日時');
             $table->timestamp('updated_at')->default(DB::raw('current_timestamp on update current_timestamp'))->comment('更新日時');
             $table->softDeletes();
         });
