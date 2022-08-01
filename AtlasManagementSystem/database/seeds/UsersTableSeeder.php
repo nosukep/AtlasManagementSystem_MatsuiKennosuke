@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
             'mail_address' => 'Tanaka@atlas.com',
             'sex' => '1',
             'birth_day' => '2000-01-01',
-            'role' => '9',
+            'role' => '4',
             'password' => Hash::make('user01'),
         ]);
     }
