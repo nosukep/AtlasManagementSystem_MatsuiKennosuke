@@ -81,11 +81,11 @@ class RegisterController extends Controller
             ]);
             $user = User::findOrFail($user_get->id);
             $user->subjects()->attach($subjects);
-            DB::commit();
+            DB::commit(); //トランザクションで実行したSQLをすべて確定させる
             return view('auth.login.login');
         }catch(\Exception $e){
-            DB::rollback();
-            return redirect()->route('loginView');
+            DB::rollback(); //トランザクションで実行したSQLをすべて破棄する
+            return redirect()->route('registerView');
         }
     }
 }
