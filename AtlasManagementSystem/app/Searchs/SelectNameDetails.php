@@ -8,7 +8,7 @@ class SelectNameDetails implements DisplayUsers{
   // 改修課題：選択科目の検索機能
   public function resultUsers($keyword, $category, $updown, $gender, $role, $subjects){
     if(is_null($gender)){
-      $gender = ['1', '2'];
+      $gender = ['1', '2', '3']; //性別：その他追加
     }else{
       $gender = array($gender);
     }

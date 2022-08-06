@@ -23,8 +23,10 @@
       <div>
         @if($user->sex == 1)
         <span>性別 : </span><span>男</span>
-        @else
+        @elseif($user->sex == 2)
         <span>性別 : </span><span>女</span>
+        @else
+        <span>性別 : </span><span>その他</span>
         @endif
       </div>
       <div>
@@ -79,6 +81,7 @@
             <label>性別</label>
             <span>男</span><input type="radio" name="sex" value="1" form="userSearchRequest">
             <span>女</span><input type="radio" name="sex" value="2" form="userSearchRequest">
+            <span>その他</span><input type="radio" name="sex" value="3" form="userSearchRequest">
           </div>
           <div>
             <label>権限</label>
@@ -91,7 +94,10 @@
             </select>
           </div>
           <div class="selected_engineer">
-            <label>選択科目</label>
+            <label>選択科目</label><br>
+            <span>国語</span><input type="checkbox" name="subjects[]" value="1" form="userSearchRequest"><br>
+            <span>数学</span><input type="checkbox" name="subjects[]" value="2" form="userSearchRequest"><br>
+            <span>英語</span><input type="checkbox" name="subjects[]" value="3" form="userSearchRequest">
           </div>
         </div>
       </div>

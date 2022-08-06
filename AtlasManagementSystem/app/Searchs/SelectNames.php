@@ -7,7 +7,7 @@ class SelectNames implements DisplayUsers{
 
   public function resultUsers($keyword, $category, $updown, $gender, $role, $subjects){
     if(empty($gender)){
-      $gender = ['1', '2'];
+      $gender = ['1', '2', '3']; //性別：その他追加
     }else{
       $gender = array($gender);
     }

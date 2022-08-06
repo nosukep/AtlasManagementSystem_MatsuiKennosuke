@@ -13,7 +13,7 @@ class SelectIdDetails implements DisplayUsers{
       $keyword = array($keyword);
     }
     if(is_null($gender)){
-      $gender = ['1', '2'];
+      $gender = ['1', '2', '3']; //性別：その他追加
     }else{
       $gender = array($gender);
     }
