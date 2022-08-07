@@ -5,7 +5,7 @@ $(function () {
   });
 
   $(document).on('click', '.like_btn', function (e) {
-    e.preventDefault();
+    e.preventDefault(); // clickイベントに関して「preventDefault」する
     $(this).addClass('un_like_btn');
     $(this).removeClass('like_btn');
     var post_id = $(this).attr('post_id');
@@ -48,7 +48,7 @@ $(function () {
     });
   });
 
-  $('.edit-modal-open').on('click',function(){
+  $('.edit-modal-open').on('click', function () {
     $('.js-modal').fadeIn();
     var post_title = $(this).attr('post_title');
     var post_body = $(this).attr('post_body');
