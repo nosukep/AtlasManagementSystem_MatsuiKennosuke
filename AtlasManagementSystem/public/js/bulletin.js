@@ -8,15 +8,15 @@ $(function () {
     e.preventDefault(); // clickイベントに関して「preventDefault」する
     $(this).addClass('un_like_btn');
     $(this).removeClass('like_btn');
-    var post_id = $(this).attr('post_id');
-    var count = $('.like_counts' + post_id).text();
-    var countInt = Number(count);
+    var post_id = $(this).attr('post_id'); //post_id="{{ $post->id }}"を取得
+    var count = $('.like_counts' + post_id).text(); // <span class="like_counts{{ $post->id }}">の要素を取得
+    var countInt = Number(count); //数値化
     $.ajax({
-      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-      method: "post",
-      url: "/like/post/" + post_id,
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }, // CSRFトークンを追加(419エラー防止)
+      method: "post", //送信方式
+      url: "/like/post/" + post_id, //データ送信先
       data: {
-        post_id: $(this).attr('post_id'),
+        post_id: $(this).attr('post_id'), //送信するデータ
       },
     }).done(function (res) {
       console.log(res);
