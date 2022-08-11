@@ -9,6 +9,11 @@
       <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
       <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
       <div class="post_bottom_area d-flex">
+        <div>
+          @foreach($post->subCategories as $sub_category)
+            <input type="submit" name="category_word" class="category_btn" value="{{ $sub_category->sub_category }}" form="postSearchRequest">
+          @endforeach
+        </div>
         <div class="d-flex post_status">
           <div class="mr-5">
             <i class="fa fa-comment"></i><span class="">{{ $post_comment->commentCounts($post->id)->get()->count() }}</span>
@@ -37,7 +42,16 @@
       <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
       <ul>
         @foreach($categories as $category)
-        <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
+        <li class="main_categories" category_id="{{ $category->id }}">
+          <span>{{ $category->main_category }}<span><br>
+          <ul>
+          @foreach($category->subCategories as $sub_category)
+          <li>
+            <input type="submit" name="category_word" class="category_btn" style="margin-left: 20px" value="{{ $sub_category->sub_category }}" form="postSearchRequest">
+          </li>
+          @endforeach
+          </ul>
+        </li>
         @endforeach
       </ul>
     </div>

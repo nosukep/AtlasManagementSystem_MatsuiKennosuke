@@ -6,6 +6,9 @@
       <div class="p-3">
         <div class="detail_inner_head">
           <div>
+          @foreach($post->subCategories as $sub_category)
+            <input type="submit" name="category_word" class="category_btn" value="{{ $sub_category->sub_category }}" form="postSearchRequest">
+          @endforeach
           </div>
           @if ($post->user->id == Auth::user()->id)
           <div>
@@ -14,7 +17,6 @@
           </div>
           @endif
         </div>
-
         <div class="contributor d-flex">
           <p>
             <span>{{ $post->user->over_name }}</span>
@@ -54,6 +56,7 @@
     </div>
   </div>
 </div>
+<form action="{{ route('post.show') }}" method="get" id="postSearchRequest"></form>
 <div class="modal js-modal">
   <div class="modal__bg js-modal-close"></div>
   <div class="modal__content">
