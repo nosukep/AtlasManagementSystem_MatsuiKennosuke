@@ -45,7 +45,7 @@ class CalendarView{
         $startDay = $this->carbon->format("Y-m-01");
         // 今日取得
         $toDay = $this->carbon->format("Y-m-d");
-        // 今日以降の日付はtdタグにクラス名「day-(曜日)」を付与する
+        // tdタグについて、過去日はクラス名「past-day」を、今日以降の日付はクラス名「day-(曜日)」を付与する
         if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
           $html[] = '<td class="past-day border">';
         }else{
