@@ -56,30 +56,31 @@ class CalendarView{
 
         if ($startDay <= $day->everyDay() && $toDay > $day->everyDay()) {
           $html[] = '<p>受付終了</p>';
+          $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
         }else {
-                  if(in_array($day->everyDay(), $day->authReserveDay())){
-                  // ログインユーザーが予約している日があれば予約日の部数を取得。
-                  $reservePart = $day->authReserveDate($day->everyDay())->first()->setting_part;
-                  if($reservePart == 1){
-                    $reservePart = "リモ1部";
-                  }else if($reservePart == 2){
-                    $reservePart = "リモ2部";
-                  }else if($reservePart == 3){
-                    $reservePart = "リモ3部";
-                  }
-                  // 月初から今日までの間の日付で予約している日の処理。
-                  if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
-                    $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px"></p>';
-                    $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
-                  }else{
-                    // 今日以降の予約をキャンセルするボタン
-                    $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
-                    $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
-                  }
-                }else{
-                  // 予約していなければapp/Calendars/General/CalendarWeekDay.phpで設定しているselectPartメソッドでselectボックスを表示。
-                  $html[] = $day->selectPart($day->everyDay());
-                }
+          if(in_array($day->everyDay(), $day->authReserveDay())){
+            // ログインユーザーが予約している日があれば予約日の部数を取得。
+            $reservePart = $day->authReserveDate($day->everyDay())->first()->setting_part;
+            if($reservePart == 1){
+              $reservePart = "リモ1部";
+            }else if($reservePart == 2){
+              $reservePart = "リモ2部";
+            }else if($reservePart == 3){
+              $reservePart = "リモ3部";
+            }
+            // 月初から今日までの間の日付で予約している日の処理。
+            if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
+              $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px"></p>';
+              $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+            }else{
+              // 今日以降の予約をキャンセルするボタン
+              $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
+              $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+            }
+          }else{
+            // 予約していなければapp/Calendars/General/CalendarWeekDay.phpで設定しているselectPartメソッドでselectボックスを表示。
+            $html[] = $day->selectPart($day->everyDay());
+          }
         }
         // app/Calendars/General/CalendarWeekDay.phpの82行目で設定しているinput(hidden)タグ。app/Http/Controllers/Authenticated/Calendar/Admin/CalendarsController.phpで予約する部数と結合して連想配列化する。
         $html[] = $day->getDate();
