@@ -19,11 +19,17 @@ class CalendarsController extends Controller
     }
 
     public function reserve(Request $request){
+        // app/Calendars/General/CalendarView.phpのreservePartsフォームから値を受け取る。
         DB::beginTransaction();
         try{
+            // 予約する日付を取得。
             $getPart = $request->getPart;
+            // 予約する部数を取得。
             $getDate = $request->getData;
+            // $getPartをキー、$getDate値として配列化したものの内、$getPartがnullのものは除外する。
             $reserveDays = array_filter(array_combine($getDate, $getPart));
+            dd($getDate);
+            // $getDate=$key,&getPart=valueとしてforeach
             foreach($reserveDays as $key => $value){
                 $reserve_settings = ReserveSettings::where('setting_reserve', $key)->where('setting_part', $value)->first();
                 $reserve_settings->decrement('limit_users');
