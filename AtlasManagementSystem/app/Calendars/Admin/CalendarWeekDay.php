@@ -24,19 +24,26 @@ class CalendarWeekDay{
   }
 
   function dayPartCounts($ymd){
+    // 配列を定義
     $html = [];
+    // 1部がセッティングされていれば取得
     $one_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first();
+    // 2部がセッティングされていれば取得
     $two_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
+    // 3部がセッティングされていれば取得
     $three_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '3')->first();
 
     $html[] = '<div class="text-left">';
     if($one_part){
+      // 1部がセッティングされていればhtmlを表示
       $html[] = '<p class="day_part m-0 pt-1">1部</p>';
     }
     if($two_part){
+      // 2部がセッティングされていればhtmlを表示
       $html[] = '<p class="day_part m-0 pt-1">2部</p>';
     }
     if($three_part){
+      // 3部がセッティングされていればhtmlを表示
       $html[] = '<p class="day_part m-0 pt-1">3部</p>';
     }
     $html[] = '</div>';
@@ -48,8 +55,10 @@ class CalendarWeekDay{
   function onePartFrame($day){
     $one_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '1')->first();
     if($one_part_frame){
+      // 1部がセッティングされていれば人数を取得
       $one_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '1')->first()->limit_users;
     }else{
+      // セッティングされていれば人数を20で表示
       $one_part_frame = "20";
     }
     return $one_part_frame;
@@ -57,8 +66,10 @@ class CalendarWeekDay{
   function twoPartFrame($day){
     $two_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '2')->first();
     if($two_part_frame){
+      // 2部がセッティングされていれば人数を取得
       $two_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '2')->first()->limit_users;
     }else{
+      // セッティングされていれば人数を20で表示
       $two_part_frame = "20";
     }
     return $two_part_frame;
@@ -66,8 +77,10 @@ class CalendarWeekDay{
   function threePartFrame($day){
     $three_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '3')->first();
     if($three_part_frame){
+      // 3部がセッティングされていれば人数を取得
       $three_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '3')->first()->limit_users;
     }else{
+      // セッティングされていれば人数を20で表示
       $three_part_frame = "20";
     }
     return $three_part_frame;

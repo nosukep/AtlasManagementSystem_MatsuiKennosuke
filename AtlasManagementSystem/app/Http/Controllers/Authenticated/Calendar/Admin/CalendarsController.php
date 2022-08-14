@@ -30,9 +30,14 @@ class CalendarsController extends Controller
     }
 
     public function updateSettings(Request $request){
+        // app/Calendars/Admin/CalendarSettingView.phpから送信される
+        // $reserveDaysにapp/Calendars/Admin/CalendarSettingView.phpから渡される明日以降の日付ごとに1,2,3部の人数を配列に格納した配列を格納
         $reserveDays = $request->input('reserve_day');
+        // foreachでもとの配列に「日付=>部」と名付けて回す
         foreach($reserveDays as $day => $parts){
             foreach($parts as $part => $frame){
+                // foreachでもとのpart配列に「部=>人数」と名付けて回す
+                // reserve_settingsテーブルを探索して、指定した値が指定したカラムに格納されているレコードがヒットすればupdate、ヒットしなかった場合はcreateを実行する。
                 ReserveSettings::updateOrCreate([
                     'setting_reserve' => $day,
                     'setting_part' => $part,
