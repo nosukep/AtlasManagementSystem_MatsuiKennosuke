@@ -46,7 +46,7 @@ class CalendarView{
         // 今日取得
         $toDay = $this->carbon->copy()->format("Y-m-d");
         // 今日以降の日付はtdタグにクラス名「day-(曜日)」を付与する
-        if($startDay <= $day->everyDay() && $toDay > $day->everyDay()){
+        if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
           $html[] = '<td class="calendar-td past-day">';
         }else{
           $html[] = '<td class="calendar-td '.$day->getClassName().'">';
@@ -55,26 +55,26 @@ class CalendarView{
         $html[] = $day->render();
 
         if ($startDay <= $day->everyDay() && $toDay > $day->everyDay()) {
-          $html[] = '<p>受付終了</p>';
+          $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
           $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
         }else {
           if(in_array($day->everyDay(), $day->authReserveDay())){
             // ログインユーザーが予約している日があれば予約日の部数を取得。
-            $reservePart = $day->authReserveDate($day->everyDay())->first()->setting_part;
-            if($reservePart == 1){
+            $reservePartId = $day->authReserveDate($day->everyDay())->first()->setting_part;
+            if($reservePartId == 1){
               $reservePart = "リモ1部";
-            }else if($reservePart == 2){
+            }else if($reservePartId == 2){
               $reservePart = "リモ2部";
-            }else if($reservePart == 3){
+            }else if($reservePartId == 3){
               $reservePart = "リモ3部";
             }
             // 月初から今日までの間の日付で予約している日の処理。
             if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
-              $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px"></p>';
+              $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">' . $reservePart . '参加</p>';
               $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
             }else{
               // 今日以降の予約をキャンセルするボタン
-              $html[] = '<button type="submit" class="cancel-modal-open btn btn-danger p-0 w-75" name="" style="font-size:12px" delete-date="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'" delete-part="'. $reservePart .'">'. $reservePart .'</button>';
+              $html[] = '<button type="submit" class="cancel-modal-open btn btn-danger p-0 w-75" name="" style="font-size:12px" delete-date="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'" delete-part="'. $reservePart .'" delete-part-id="'. $reservePartId .'">'. $reservePart .'</button>';
               $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
             }
           }else{
