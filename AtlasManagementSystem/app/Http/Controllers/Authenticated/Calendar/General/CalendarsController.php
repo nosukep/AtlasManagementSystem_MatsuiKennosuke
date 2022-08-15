@@ -49,7 +49,6 @@ class CalendarsController extends Controller
             $getDate = $request->delete_date;
             // 予約する部数を取得。
             $getPart = $request->delete_part;
-            // $getPartをキー、$getDate値として配列化したものの内、$getPartがnullのものは除外する。
             $reserve_settings = ReserveSettings::where('setting_reserve', $getDate)->where('setting_part', $getPart)->first();
             $reserve_settings->increment('limit_users');
             $reserve_settings->users()->detach(Auth::id());

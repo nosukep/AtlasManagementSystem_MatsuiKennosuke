@@ -54,7 +54,7 @@ class CalendarView{
         // app/Calendars/General/CalendarWeekDay.phpで設定しているメソッド。日付取得してhtml(pタグ)表示。("d"にすると先頭に0が付く)
         $html[] = $day->render();
 
-        if ($startDay <= $day->everyDay() && $toDay > $day->everyDay()) {
+        if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
           $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
           $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
         }else {

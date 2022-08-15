@@ -36,15 +36,16 @@ class CalendarWeekDay{
     $html[] = '<div class="text-left">';
     if($one_part){
       // 1部がセッティングされていればhtmlを表示
-      $html[] = '<p class="day_part m-0 pt-1">1部</p>';
+      $partCount =
+      $html[] = '<p class="day_part m-0 pt-1">1部<span style="margin-left: 22px">' . $one_part->users->count() . '</span></p>';
     }
     if($two_part){
       // 2部がセッティングされていればhtmlを表示
-      $html[] = '<p class="day_part m-0 pt-1">2部</p>';
+      $html[] = '<p class="day_part m-0 pt-1">2部<span style="margin-left: 20px">' . $two_part->users->count() . '</span></p>';
     }
     if($three_part){
       // 3部がセッティングされていればhtmlを表示
-      $html[] = '<p class="day_part m-0 pt-1">3部</p>';
+      $html[] = '<p class="day_part m-0 pt-1">3部<span style="margin-left: 20px">' . $three_part->users->count() . '</span></p>';
     }
     $html[] = '</div>';
 
